@@ -7,7 +7,7 @@ function Header() {
 
     useEffect(() => {
             //wir holen uns alle einträge aus der localstorage
-            
+
             const allEntries = JSON.parse(window.localStorage.getItem('entries'))
 
             //wir führen das zufällige  selectieren eines eintrags nur aus, wenn der wert entries in der localstorage existiert, und mindestens einen eintrag hat 
@@ -24,7 +24,7 @@ function Header() {
         <div className='Header'> 
             <ul>
                 <li> <NavLink to='/'>StartSeite</NavLink></li>
-                <li> <NavLink to={`/entry/${ randomEntry }`}>Zufälliger Eintrag </NavLink></li>
+                <li> <Link to={`/entry/${ randomEntry }`}>Zufälliger Eintrag </Link></li>
                 <li> <NavLink to='/entry/create'>Eintrag Erstellen</NavLink></li>
             </ul>
         </div>
