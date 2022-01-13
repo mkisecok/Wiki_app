@@ -23,7 +23,15 @@ function Page() {
     }
 
     const handleDeleteEntry = () => {
-console.log('deleten');
+
+        const allEntries= JSON.parse(window.localStorage.getItem('entries'));
+
+        const leftoverEntries = allEntries.filter(oldEntries=> oldEntries.id !== entry.id);
+
+        window.localStorage.setItem('entries', JSON.stringify(leftoverEntries));
+         navigate('/')
+
+
     }
 
     return (
