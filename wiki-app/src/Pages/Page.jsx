@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import Moment from 'react-moment';
 import 'moment/locale/de';
 
-function Page() {
+function Page({props}) {
 
     const [ entry, setEntry ]= useState([]);
     const [ loading, setLoading ] = useState(true);
@@ -42,11 +42,17 @@ function Page() {
                :
                <div>
                    <h1>{entry.title}</h1>
-
-                   <div>
+                    {
+                        props
+                        ?
+                        <div>
                        <button onClick={()=> handleEditEntry()}>Editieren</button>
                        <button onClick={()=> handleDeleteEntry()}>Löschen</button>
-                   </div>
+                        </div>
+                        :
+                        <h4 style={{color:'red'}}>Bitte sich einloggen, um der Text zu arbeiten</h4>
+                    }
+                   
                    <hr />
                    <ReactMarkdown>{ entry.content }</ReactMarkdown>
                    <hr />

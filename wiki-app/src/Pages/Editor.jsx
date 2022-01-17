@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown';
 
 
 
-function Editor() {
+function Editor({props}) {
 
     //Erstllen zwei hooks für eintrags und titel 
 
@@ -57,8 +57,13 @@ function Editor() {
     }
     return (
         <div className='Editor'>
-
             <h1>Eintrag Erstellen </h1>
+            {
+                props
+                ?
+
+            
+            <>
 
             <div>
                 <h3>Titel</h3>
@@ -84,7 +89,12 @@ function Editor() {
                     Speichern
                 </button>
             </div>
+            </>
+            :
+            <h4 style={{color:'red'}}>Bitte sich einloggen, um der Text zu arbeiten</h4>
+            }
         </div>
+    
     )
 }
 
