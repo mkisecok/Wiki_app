@@ -22,13 +22,13 @@ function Welcome() {
             {
                 r[group].children.push(e)
             }
-            r[group].children.sort((a,b)=>a.title.toUpperCase() > b.title.toUpperCase() && 1 || -1 )
+            r[group].children.sort((a,b)=>a.title.toUpperCase() > b.title.toUpperCase() && (1 || -1 ))
            
             return r
         }, {})
 
         const result=Object.values(sortedEntries)
-        result.sort((a,b)=> a.group.toUpperCase() > b.group.toUpperCase() && 1 || -1 )
+        result.sort((a,b)=> a.group.toUpperCase() > b.group.toUpperCase() && (1 || -1 ))
         setEntries(result);
         setLoading(false)
     },[])
