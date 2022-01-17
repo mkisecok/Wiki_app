@@ -3,14 +3,17 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import Moment from 'react-moment';
 import 'moment/locale/de';
+import { useContext } from 'react';
+import LoginContext from '../LoginContext';
 
-function Page({props}) {
+function Page() {
 
     const [ entry, setEntry ]= useState([]);
     const [ loading, setLoading ] = useState(true);
     const navigate=useNavigate();
     const { id } = useParams();
-
+    const {isLogin}=useContext(LoginContext)
+    
     useEffect(()=>{
 
         const currentEntry=JSON.parse(window.localStorage.getItem('entries')).find(entry=>entry.id === id)
@@ -43,7 +46,7 @@ function Page({props}) {
                <div>
                    <h1>{entry.title}</h1>
                     {
-                        props
+                        isLogin
                         ?
                         <div>
                        <button onClick={()=> handleEditEntry()}>Editieren</button>

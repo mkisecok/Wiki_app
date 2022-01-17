@@ -3,10 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import slugify from 'slugify';
 import ReactMarkdown from 'react-markdown';
+import { useContext } from 'react';
+import LoginContext from '../LoginContext';
 
 
 
-function Editor({props}) {
+function Editor() {
 
     //Erstllen zwei hooks für eintrags und titel 
 
@@ -15,7 +17,8 @@ function Editor({props}) {
     
     const navigate = useNavigate();
     const { id } = useParams();
-
+    const {isLogin} =useContext(LoginContext);
+    
     useEffect(() => {
        if(id !== undefined)
        {
@@ -59,12 +62,9 @@ function Editor({props}) {
         <div className='Editor'>
             <h1>Eintrag Erstellen </h1>
             {
-                props
+                isLogin
                 ?
-
-            
             <>
-
             <div>
                 <h3>Titel</h3>
                 <input type="text" value={ title }  onChange={(e)=> setTitle(e.target.value)}/>

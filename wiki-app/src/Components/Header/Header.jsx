@@ -1,9 +1,12 @@
 import React,{ useState, useEffect } from 'react'
+import { useContext } from 'react';
 import { NavLink, Link } from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'
-function Header({props}) {
+import LoginContext from '../../LoginContext';
+function Header() {
 
     const [ randomEntry, setRandomEntry ] = useState('');
+    const {isLogin, setIsLogin}=useContext(LoginContext)
     
     useEffect(() => {
             //wir holen uns alle einträge aus der localstorage
@@ -28,17 +31,17 @@ function Header({props}) {
           <Menu.Item as={NavLink} to='/' name='StartSeite' />
           <Menu.Item as={Link} to={`/entry/${ randomEntry }`}  name='Zufälliger Eintrag' />
           {
-              props.isLogin
+              isLogin
               ?
               <>
                 <Menu.Item as={NavLink} to='/entry/create' name='Eintrag Erstellen' />
                 <Menu.Menu position='right'>
-                <Menu.Item as={Link} to='#' onClick={()=> props.setIsLogin(!props.isLogin)} name='Auslogen'/>
+                <Menu.Item as={Link} to='#' onClick={()=> setIsLogin(!isLogin)} name='Auslogen'/>
                 </Menu.Menu>
               </>
               :
                 <Menu.Menu position='right'>
-                <Menu.Item as={Link} to='#' onClick={()=> props.setIsLogin(!props.isLogin)} name='Einlogen'/>
+                <Menu.Item as={Link} to='#' onClick={()=> setIsLogin(!isLogin)} name='Einlogen'/>
                 </Menu.Menu>
 
           }
