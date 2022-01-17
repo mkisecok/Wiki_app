@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import { Container, Divider, Popup } from 'semantic-ui-react'
 
 function Welcome() {
 
@@ -22,21 +22,22 @@ function Welcome() {
             {
                 r[group].children.push(e)
             }
-            r[group].children.sort((a,b)=>a.title.toUpperCase() > b.title.toUpperCase() && 1 || -1 )
+            r[group].children.sort((a,b)=>a.title.toUpperCase() > b.title.toUpperCase() && (1 || -1 ))
            
             return r
         }, {})
 
         const result=Object.values(sortedEntries)
-        result.sort((a,b)=> a.group.toUpperCase() > b.group.toUpperCase() && 1 || -1 )
+        result.sort((a,b)=> a.group.toUpperCase() > b.group.toUpperCase() && (1 || -1 ))
         setEntries(result);
         setLoading(false)
     },[])
 
     return (
+        <Container textAlign='left' style={{margin:'20px'}}>
         <div className='Welcome'>
-            <h2> Willkommen auf unserer Wiki </h2>
-
+            <h2 > Willkommen auf unserer Wiki </h2>
+            
             {
                 loading
                 ?
@@ -54,6 +55,7 @@ function Welcome() {
                         return(
                             <div key={ i }>
                                 <strong>{item.group}</strong>
+                                
                                 <br />
                                 <ul>
                                     {
@@ -61,12 +63,21 @@ function Welcome() {
                                         {
                                             return(
                                                 <li key={ j }>
-                                                    <Link to={`/entry/${entry.id}`}> {entry.title}</Link>
+                                                    <Popup
+                                                    content={`${entry.content.slice(0,50)}...`}
+                                                    trigger={<Link to={`/entry/${entry.id}`}> {entry.title}</Link>}
+                                                    position='right center'
+                                                    offset={[0, 50]}
+                                                    inverted
+                                                    />
+                                                    
+                                                    
                                                 </li>
                                             )
                                         })
                                     }
                                 </ul>
+                                <Divider/>
                             </div>
 
                         )
@@ -75,7 +86,9 @@ function Welcome() {
                 }
                 </>
             }
+            
         </div>
+        </Container>
     )
 }
 

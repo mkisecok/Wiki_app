@@ -3,6 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import slugify from 'slugify';
 import ReactMarkdown from 'react-markdown';
+import { useContext } from 'react';
+import LoginContext from '../LoginContext';
+import { Button, Container, Divider, Form, Grid, GridColumn, GridRow, Header, Input, TextArea } from 'semantic-ui-react';
 
 
 
@@ -15,7 +18,9 @@ function Editor() {
     
     const navigate = useNavigate();
     const { id } = useParams();
-
+    const {isLogin} =useContext(LoginContext);
+    
+    
     useEffect(() => {
        if(id !== undefined)
        {
@@ -55,37 +60,93 @@ function Editor() {
         navigate('/entry/' + newPost.id)
         
     }
-    return (
-        <div className='Editor'>
+return (
+    <Container textAlign='left' style={{margin:'20px'}}>
 
-            <h1>Eintrag Erstellen </h1>
+    <div className='Editor'>
+        <Grid>
+         <GridColumn width={16}>
 
-            <div>
-                <h3>Titel</h3>
-                <input type="text" value={ title }  onChange={(e)=> setTitle(e.target.value)}/>
+            <GridRow><h1>Eintrag Erstellen </h1></GridRow>
+         </GridColumn>   
+            
+        {
+            isLogin
+            ?
+            <>
+            <GridColumn width={8}>
+                <GridRow>
+                <Input
+                action={{
+                    color:'teal',
+                    labelPosition:'left',
+                    icon:'tag',
+                    content:'Titel',
+                }}
+                actionPosition='left'
+                placeholder='Eintrag Titel'
+                onChange={(e)=> setTitle(e.target.value)}
+                value={ title }
+                />
+
+                
+                
                 <h3>Inhalt</h3>
-                <textarea
-                value={content}
-                onChange={(e)=> setContent(e.target.value)}
-                cols='30'
-                rows='10'  
-                ></textarea>
-            </div>
-            <div>
-                <h3>Titel</h3>
-                <p> { title }</p>
-               
-                <h3>Inhalt</h3>
-                <ReactMarkdown>{ content }</ReactMarkdown>
-                <button
+                <Form>
+                    <TextArea
+                    placeholder='Ihrer Eintrag...'
+                    value={content}
+                    rows={15}
+                    onChange={(e)=> setContent(e.target.value)}
+                    />
+                    
+                </Form>
+                <Button
+                content='Speichern'
+                icon='save'
+                labelPosition='left'
+                color='blue' 
                 onClick={handleSave}
                 disabled={ title.length === 0}
-                >
-                    Speichern
-                </button>
-            </div>
-        </div>
+                style={{marginTop:'15px'}}/>
+                
+                </GridRow>
+            </GridColumn>
+            <GridColumn width={8}>
+                
+                <GridRow >
+                    {
+                    (title || content) &&
+                    <>
+                    <h2> Output</h2>
+                    <div style={{borderLeft:'6px solid #04AA6D',backgroundColor:'#ddffdd' , padding:'15px', width:'80%'}} >
+                    <Header as='h2'> { title.toUpperCase() } </Header>
+                    <Divider/>
+                    <ReactMarkdown  >{ content }</ReactMarkdown>
+                    </div>
+                    </>
+                    }
+                
+                </GridRow >
+            </GridColumn>
+            </>
+            :
+            <GridColumn width={16}>
+                <GridRow>
+                    <div style={{backgroundColor:'#ffdddd', borderLeft:'6px solid #f44336', padding:'15px'}}>
+                    <h4 style={{color:'red'}}>Bitte sich einloggen, um der Text zu arbeiten</h4>
+                    </div>
+                
+                </GridRow>
+            </GridColumn>
+
+        }
+        </Grid>
+    </div>
+    </Container>
+    
     )
 }
 
 export default Editor
+
