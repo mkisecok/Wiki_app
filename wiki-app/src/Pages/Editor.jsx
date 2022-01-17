@@ -133,7 +133,10 @@ return (
             :
             <GridColumn width={16}>
                 <GridRow>
-                <h4 style={{color:'red'}}>Bitte sich einloggen, um der Text zu arbeiten</h4>
+                    <div style={{backgroundColor:'#ffdddd', borderLeft:'6px solid #f44336', padding:'15px'}}>
+                    <h4 style={{color:'red'}}>Bitte sich einloggen, um der Text zu arbeiten</h4>
+                    </div>
+                
                 </GridRow>
             </GridColumn>
 
