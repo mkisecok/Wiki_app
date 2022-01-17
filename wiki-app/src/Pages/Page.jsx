@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 import 'moment/locale/de';
 import { useContext } from 'react';
 import LoginContext from '../LoginContext';
+import { Button, Container, Divider, Icon } from 'semantic-ui-react';
 
 function Page() {
 
@@ -38,28 +39,31 @@ function Page() {
     }
 
     return (
+        <Container textAlign='left' style={{margin:'20px'}}>
         <div className='Page'>
            {
                loading ?
                <p > Loading...</p>
                :
                <div>
-                   <h1>{entry.title}</h1>
+                   <h1>{entry.title.toUpperCase()}</h1>
                     {
                         isLogin
                         ?
                         <div>
-                       <button onClick={()=> handleEditEntry()}>Editieren</button>
-                       <button onClick={()=> handleDeleteEntry()}>Löschen</button>
+                       <Button content='Editieren' icon='pencil' labelPosition='left' color='blue'  onClick={()=> handleEditEntry()}/>      
+                       <Button icon='trash alternate' content='Löschen' labelPosition='left' color='red' onClick={()=> handleDeleteEntry()}/>
+                      
                         </div>
                         :
                         <h4 style={{color:'red'}}>Bitte sich einloggen, um der Text zu arbeiten</h4>
                     }
                    
-                   <hr />
+                   <Divider/>
                    <ReactMarkdown>{ entry.content }</ReactMarkdown>
-                   <hr />
+                   <Divider/>
                    Letzte änderung:&nbsp;
+                   <Icon name='clock'></Icon>
                    <strong>
                        <Moment fromNow locale='de'>
                            {
@@ -71,6 +75,7 @@ function Page() {
                </div>
            }
         </div>
+        </Container>
     )
 }
 
