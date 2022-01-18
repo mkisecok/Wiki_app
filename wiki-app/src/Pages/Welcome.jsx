@@ -82,8 +82,6 @@ function Welcome() {
                                                     offset={[0, 50]}
                                                     inverted
                                                     />
-                                                    
-                                                    
                                                 </li>
                                             )
                                         })
