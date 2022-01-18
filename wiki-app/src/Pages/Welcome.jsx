@@ -1,12 +1,14 @@
+import { Grid } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Divider, Popup } from 'semantic-ui-react'
+import Grouped from '../Components/Grouped/Grouped';
 
 function Welcome() {
 
     const[ entries, setEntries ] = useState([]);
     const[ loading, setLoading ] = useState(false);
-
+    const local=JSON.parse(window.localStorage.getItem('entries'))
     useEffect(()=>{
         const allEntries= JSON.parse(window.localStorage.getItem('entries'))||[]
 
@@ -44,7 +46,17 @@ function Welcome() {
                 <p>Loading...</p>
                 :
                 <>
-                <h3>Einträge</h3>
+                {/* Material UI Grid */}
+                <Grid container spacing={2}> 
+                    <Grid item xs={8}>
+                        <h3>Einträge</h3>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Grouped local={local} />
+                    </Grid>
+                </Grid>
+                
+                
                 {
                     entries.length === 0 
                     ?
