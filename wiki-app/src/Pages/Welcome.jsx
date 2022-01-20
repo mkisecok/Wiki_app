@@ -8,7 +8,7 @@ function Welcome() {
 
     const[ entries, setEntries ] = useState([]);
     const[ loading, setLoading ] = useState(false);
-    const local=JSON.parse(window.localStorage.getItem('entries'))
+    
     useEffect(()=>{
         const allEntries= JSON.parse(window.localStorage.getItem('entries'))||[]
 
@@ -34,7 +34,7 @@ function Welcome() {
         setEntries(result);
         setLoading(false)
     },[])
-
+    const local=JSON.parse(window.localStorage.getItem('entries'))
     return (
         <Container textAlign='left' style={{margin:'20px'}}>
         <div className='Welcome'>
@@ -52,7 +52,10 @@ function Welcome() {
                         <h3>Einträge</h3>
                     </Grid>
                     <Grid item xs={4}>
-                        <Grouped local={local} />
+                        {
+                            local && <Grouped local={local} />
+                        }
+                       
                     </Grid>
                 </Grid>
                 
